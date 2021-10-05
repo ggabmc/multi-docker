@@ -15,10 +15,10 @@ script:
   #- docker run -e CI=true ggabmc/react-anotherapp npm test
 
 after_success:
-  - docker build -t ggabmc/multi-client ./client  # ./client = look into the client directory to get the build context 
-  - docker build -t ggabmc/multi-nginx ./nginx    # ./nginx = look into the nginx directory to get the build context 
-  - docker build -t ggabmc/multi-server ./server  # ./server = look into the server directory to get the build context 
-  - docker build -t ggabmc/multi-worker ./worker  # ./worker = look into the worker directory to get the build context 
+  - docker build --tag ggabmc/multi-client ./client  # ./client = look into the client directory to get the build context 
+  - docker build --tag ggabmc/multi-nginx ./nginx    # ./nginx = look into the nginx directory to get the build context 
+  - docker build --tag ggabmc/multi-server ./server  # ./server = look into the server directory to get the build context 
+  - docker build --tag ggabmc/multi-worker ./worker  # ./worker = look into the worker directory to get the build context 
 
   # Log in to the docker CLI
   # need to go to travis and add an evironment_variables for docker id and password
