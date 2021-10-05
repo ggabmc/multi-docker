@@ -8,10 +8,11 @@ services:
 # ./client = look into the client directory to get the build context 
 before_install:
   - docker build --tag ggabmc/react-test -f ./client/Dockerfile.dev ./client
-  - docker build --tag ggabmc/react-anotherapp -f ./anotherapp/Dockerfile.dev ./anotherapp
+  #- docker build --tag ggabmc/react-anotherapp -f ./anotherapp/Dockerfile.dev ./anotherapp
 
 script:
   - docker run -e CI=true ggabmc/react-test npm test
+  #- docker run -e CI=true ggabmc/react-anotherapp npm test
 
 after_success:
   - docker build -t ggabmc/multi-client ./client  # ./client = look into the client directory to get the build context 
