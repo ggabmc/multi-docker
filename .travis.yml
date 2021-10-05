@@ -4,23 +4,27 @@ language: generic
 services:
   - docker
 
+# we do a test version of client project with the dockerfile for dev not for prod to run test first
+# ./client = look into the client directory to get the build context 
 before_install:
-  - docker build -t stephengrider/react-test -f ./client/Dockerfile.dev ./client
+  - docker build --tag ggabmc/react-test -f ./client/Dockerfile.dev ./client
+  - docker build --tag ggabmc/react-anotherapp -f ./anotherapp/Dockerfile.dev ./anotherapp
 
 script:
-  - docker run -e CI=true stephengrider/react-test npm test
+  - docker run -e CI=true ggabmc/react-test npm test
 
 after_success:
-  - docker build -t stephengrider/multi-client ./client
-  - docker build -t stephengrider/multi-nginx ./nginx
-  - docker build -t stephengrider/multi-server ./server
-  - docker build -t stephengrider/multi-worker ./worker
+  - docker build -t ggabmc/multi-client ./client  # ./client = look into the client directory to get the build context 
+  - docker build -t ggabmc/multi-nginx ./nginx    # ./nginx = look into the nginx directory to get the build context 
+  - docker build -t ggabmc/multi-server ./server  # ./server = look into the server directory to get the build context 
+  - docker build -t ggabmc/multi-worker ./worker  # ./worker = look into the worker directory to get the build context 
 
   # Log in to the docker CLI
+  # need to go to travis and add an evironment_variables for docker id and password
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   
   # Take those images and push them to docker hub
-  - docker push stephengrider/multi-client
-  - docker push stephengrider/multi-nginx
-  - docker push stephengrider/multi-server
-  - docker push stephengrider/multi-worker
+  - docker push ggabmc/multi-client
+  - docker push ggabmc/multi-nginx
+  - docker push ggabmc/multi-server
+  - docker push ggabmc/multi-worker
