@@ -2,7 +2,7 @@
 
 # also we would need this docker-compose.yml file if we are using elasticBeanstalk of aws
 
-# to deploy the images
+# to deploy the images in mutiple containers in this case (postgress, redis, api, client, worker)
 
 version: '3'
 
